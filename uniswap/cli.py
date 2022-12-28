@@ -31,7 +31,7 @@ def _coerce_to_checksum(addr: str) -> str:
     if Web3.isChecksumAddress(addr):
         return addr
     else:
-        return Web3.toChecksumAddress(addr)
+        return Web3.to_checksum_address(addr)
 
 
 @click.group()

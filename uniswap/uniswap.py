@@ -1823,27 +1823,27 @@ class Uniswap:
 
         if self.version == 2:
             params: Iterable[Union[ChecksumAddress, Optional[int]]] = [
-                self.w3.toChecksumAddress(token_in),
-                self.w3.toChecksumAddress(token_out),
+                self.w3.to_checksum_address(token_in),
+                self.w3.to_checksum_address(token_out),
             ]
             pair_token = self.factory_contract.functions.getPair(*params).call()
             token_in_erc20 = _load_contract_erc20(
-                self.w3, self.w3.toChecksumAddress(token_in)
+                self.w3, self.w3.to_checksum_address(token_in)
             )
             token_in_balance = int(
                 token_in_erc20.functions.balanceOf(
-                    self.w3.toChecksumAddress(pair_token)
+                    self.w3.to_checksum_address(pair_token)
                 ).call()
             )
             token_in_decimals = self.get_token(token_in).decimals
             token_in_balance = token_in_balance / (10**token_in_decimals)
 
             token_out_erc20 = _load_contract_erc20(
-                self.w3, self.w3.toChecksumAddress(token_out)
+                self.w3, self.w3.to_checksum_address(token_out)
             )
             token_out_balance = int(
                 token_out_erc20.functions.balanceOf(
-                    self.w3.toChecksumAddress(pair_token)
+                    self.w3.to_checksum_address(pair_token)
                 ).call()
             )
             token_out_decimals = self.get_token(token_out).decimals
@@ -1852,8 +1852,8 @@ class Uniswap:
             raw_price = token_out_balance / token_in_balance
         else:
             params = [
-                self.w3.toChecksumAddress(token_in),
-                self.w3.toChecksumAddress(token_out),
+                self.w3.to_checksum_address(token_in),
+                self.w3.to_checksum_address(token_out),
                 fee,
             ]
             pool_address = self.factory_contract.functions.getPool(*params).call()

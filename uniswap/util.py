@@ -37,10 +37,10 @@ def _str_to_addr(s: Union[AddressLike, str]) -> Address:
 def _addr_to_str(a: AddressLike) -> str:
     if isinstance(a, bytes):
         # Address or ChecksumAddress
-        addr: str = Web3.toChecksumAddress("0x" + bytes(a).hex())
+        addr: str = Web3.to_checksum_address("0x" + bytes(a).hex())
         return addr
     elif isinstance(a, str) and a.startswith("0x"):
-        addr = Web3.toChecksumAddress(a)
+        addr = Web3.to_checksum_address(a)
         return addr
 
     raise NameNotFound(a)
@@ -63,7 +63,7 @@ def _load_abi(name: str) -> str:
 
 @functools.lru_cache()
 def _load_contract(w3: Web3, abi_name: str, address: AddressLike) -> Contract:
-    address = Web3.toChecksumAddress(address)
+    address = Web3.to_checksum_address(address)
     return w3.eth.contract(address=address, abi=_load_abi(abi_name))  # type: ignore
 
 
